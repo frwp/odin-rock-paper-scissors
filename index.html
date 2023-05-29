@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
-    <script src="./scripts/script.js"></script>
+    <script src="./scripts/script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -18,13 +18,11 @@
     </div>
     <div class="option">
         <ul>
-            <li><button>ROCK</button></li>
-            <li><button>PAPER</button></li>
-            <li><button>SCISSORS</button></li>
+            <li><button type="button" id="rock-btn" value="rock">ROCK</button></li>
+            <li><button type="button" id="paper-btn" value="paper">PAPER</button></li>
+            <li><button type="button" id="scissors-btn" value="scissors">SCISSORS</button></li>
         </ul>
     </div>
-    <p>Open console by pressing:</p>
-    <code>Control+Shift+i</code> (Windows + linux)
 </body>
 
 </html>

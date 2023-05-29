@@ -72,28 +72,18 @@ function playSingleRound(playerSelection, computerSelection) {
 
 /**
  * get player's weapon of choice
+ * @param {Event} e
  * @returns {string}
  */
-function getUserWeapon() {
-    let valid = false;
-    let playerChoice = "";
-    while (!valid) {
-        playerChoice = prompt("Choose your weapon: Rock, Paper, or Scissors?");
-        if (!available.includes(playerChoice))
-            alert(
-                "Error! Player selection not in Rock, Paper, Scissors! You can't bring " +
-                    playerChoice +
-                    " here!"
-            );
-        else valid = true;
-    }
-    return playerChoice;
+function getPlayerWeapon(e) {
+    console.log(e.target.value);
+    return e.target.value;
 }
 
 function game() {
     let score = 0;
     for (let i = 0; i < 5; i++) {
-        let playerChoice = getUserWeapon();
+        let playerChoice = getPlayerWeapon();
         let computerChoice = getComputerChoice();
         console.log("It is: " + playerChoice + " vs " + computerChoice);
         let result = playSingleRound(playerChoice, computerChoice);
@@ -106,3 +96,11 @@ function game() {
     else if (score < 0) console.log("You lose the game!");
     else console.log("It is a draw! What a fierce game");
 }
+
+let rockButton = document.getElementById('rock-btn');
+let paperButton = document.getElementById("paper-btn");
+let scissorsButton = document.getElementById("scissors-btn");
+
+rockButton.addEventListener("click", getPlayerWeapon);
+paperButton.addEventListener("click", getPlayerWeapon);
+scissorsButton.addEventListener("click", getPlayerWeapon);
