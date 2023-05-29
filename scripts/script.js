@@ -25,13 +25,8 @@ function getComputerChoice() {
  */
 function playSingleRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
-    if (!available.includes(playerSelection))
-        return (
-            "Error! Player selection not in Rock, Paper, Scissors! You can't bring " +
-            playerSelection +
-            " here!"
-        );
     computerSelection = computerSelection.toLowerCase();
+
     const rockBeatsScissors = "Rock beats Scissors";
     const scissorsBeatsPaper = "Scissors beat Paper";
     const paperBeatsRock = "Paper beats Rock";
@@ -50,4 +45,27 @@ function playSingleRound(playerSelection, computerSelection) {
         if (computerSelection === rock) return youLose + rockBeatsScissors;
     }
     return "It's a draw!";
+}
+
+function game() {
+    let score = 0;
+    for (let i = 0; i < 5; i++) {
+        let valid = false;
+        let playerChoice;
+        while (!valid) {
+            playerChoice = prompt(
+                "Choose your weapon: Rock, Paper, or Scissors?"
+            );
+            if (!available.includes(playerChoice))
+                alert(
+                    "Error! Player selection not in Rock, Paper, Scissors! You can't bring " +
+                        playerChoice +
+                        " here!"
+                );
+            else valid = true;
+        }
+        let computerChoice = getComputerChoice();
+        let result = playSingleRound(playerChoice, computerChoice);
+        console.log(result);
+    }
 }
