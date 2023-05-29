@@ -17,6 +17,11 @@ function getComputerChoice() {
     return available[getRandomNumber(0, available.length - 1)];
 }
 
+/**
+ *
+ * @param {"rock" | "paper" | "scissors"} weapon
+ * @returns {string} winning message
+ */
 function winMessage(weapon) {
     const rockBeatsScissors = "You Win! Rock beats Scissors";
     const scissorsBeatsPaper = "You Win! Scissors beat Paper";
@@ -26,6 +31,11 @@ function winMessage(weapon) {
     if (weapon === paper) return paperBeatsRock;
 }
 
+/**
+ *
+ * @param {"rock" | "paper" | "scissors"} weapon
+ * @returns {string} losing message
+ */
 function loseMessage(weapon) {
     const rockBeaten = "You Lose! Rock is beaten by Paper";
     const scissorsBeaten = "You Lose! Scissors is beaten by Rock";
@@ -39,25 +49,25 @@ function loseMessage(weapon) {
  * play a single round of rock paper scissors
  * @param {string} playerSelection
  * @param {string} computerSelection
- * @returns {string} round result
+ * @returns {number} round result
  */
 function playSingleRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
     computerSelection = computerSelection.toLowerCase();
 
     if (playerSelection === rock) {
-        if (computerSelection === paper) return loseMessage(rock);
-        if (computerSelection === scissors) return winMessage(rock);
+        if (computerSelection === scissors) return 1; // winMessage(rock);
+        if (computerSelection === paper) return -1; // loseMessage(rock);
     }
     if (playerSelection === paper) {
-        if (computerSelection === rock) return winMessage(paper);
-        if (computerSelection === scissors) return loseMessage(paper);
+        if (computerSelection === rock) return 1; // winMessage(paper);
+        if (computerSelection === scissors) return -1; // loseMessage(paper);
     }
     if (playerSelection === scissors) {
-        if (computerSelection === paper) return winMessage(scissors);
-        if (computerSelection === rock) return loseMessage(scissors);
+        if (computerSelection === paper) return 1; // winMessage(scissors);
+        if (computerSelection === rock) return -1; // loseMessage(scissors);
     }
-    return "It's a draw!";
+    return 0; // "It's a draw!";
 }
 
 /**
@@ -87,6 +97,12 @@ function game() {
         let computerChoice = getComputerChoice();
         console.log("It is: " + playerChoice + " vs " + computerChoice);
         let result = playSingleRound(playerChoice, computerChoice);
-        console.log(result);
+        if (result === 1) console.log(winMessage(playerChoice));
+        if (result === -1) console.log(loseMessage(playerChoice));
+        if (result === 0) console.log("It's a draw!");
+        score += result;
     }
+    if (score > 0) console.log("You win the game!");
+    else if (score < 0) console.log("You lose the game!");
+    else console.log("It is a draw! What a fierce game");
 }
