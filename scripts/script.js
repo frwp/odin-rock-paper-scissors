@@ -97,10 +97,20 @@ function game() {
     else console.log("It is a draw! What a fierce game");
 }
 
-let rockButton = document.getElementById('rock-btn');
+function startGame() {
+    startButton.classList.add("hidden");
+    let controls = document.querySelector(".option");
+    let scoreDiv = document.querySelector(".scores");
+    controls.classList.remove("hidden");
+    scoreDiv.classList.remove("hidden");
+}
+
+let rockButton = document.getElementById("rock-btn");
 let paperButton = document.getElementById("paper-btn");
 let scissorsButton = document.getElementById("scissors-btn");
+let startButton = document.getElementById("start-btn");
 
 rockButton.addEventListener("click", getPlayerWeapon);
 paperButton.addEventListener("click", getPlayerWeapon);
 scissorsButton.addEventListener("click", getPlayerWeapon);
+startButton.addEventListener("click", startGame);
