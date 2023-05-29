@@ -25,6 +25,12 @@ function getComputerChoice() {
  */
 function playSingleRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
+    if (!available.includes(playerSelection))
+        return (
+            "Error! Player selection not in Rock, Paper, Scissors! You can't bring " +
+            playerSelection +
+            " here!"
+        );
     computerSelection = computerSelection.toLowerCase();
     const rockBeatsScissors = "Rock beats Scissors";
     const scissorsBeatsPaper = "Scissors beat Paper";
