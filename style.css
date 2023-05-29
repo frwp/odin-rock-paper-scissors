@@ -1,0 +1,17 @@
+.title {
+    text-align: center;
+}
+
+.option {
+    margin: 5rem 8rem;
+}
+
+.option ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+}
+
+.option li {
+    list-style-type: none;
+}
