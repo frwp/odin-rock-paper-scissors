@@ -83,6 +83,8 @@ function onPlayerChooseWeapon(e) {
     let computerChoice = getComputerChoice();
     let playerChoice = e.target.value;
     let result = playSingleRound(playerChoice, computerChoice);
+    let matchDetailText = document.getElementById("match-detail");
+    matchDetailText.textContent = `${playerChoice.toUpperCase()} vs ${computerChoice.toUpperCase()}`;
     finished = updateScore(result, playerChoice);
     return e.target.value;
 }
@@ -113,19 +115,19 @@ function game() {
 function updateScore(matchResult, playerChoice) {
     let playerScoreText = document.getElementById("player-score");
     let computerScoreText = document.getElementById("computer-score");
-    let matchDetailText = document.getElementById("match-detail");
+    let matchStatusText = document.getElementById("match-status");
     if (matchResult > 0) {
         playerScore++;
         playerScoreText.textContent = playerScore;
-        matchDetailText.textContent = winMessage(playerChoice);
+        matchStatusText.textContent = winMessage(playerChoice);
     }
     if (matchResult < 0) {
         computerScore++;
         computerScoreText.textContent = computerScore;
-        matchDetailText.textContent = loseMessage(playerChoice);
+        matchStatusText.textContent = loseMessage(playerChoice);
     }
     if (matchResult === 0) {
-        matchDetailText.textContent = "It's a draw!";
+        matchStatusText.textContent = "It's a draw!";
     }
     return playerScore === 5 || computerScore === 5;
 }
@@ -135,7 +137,7 @@ function startGame() {
     computerScore = 0;
     startButton.classList.add("hidden");
     let controls = document.querySelector(".option");
-    let scoreDiv = document.querySelector(".scores");
+    let scoreDiv = document.querySelector(".scores-container");
     controls.classList.remove("hidden");
     scoreDiv.classList.remove("hidden");
 }

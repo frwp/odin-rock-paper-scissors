@@ -19,15 +19,19 @@
     <div class="start">
         <button type="button" id="start-btn">START</button>
     </div>
-    <div class="scores hidden">
+    <div class="scores-container hidden">
         <div class="number">
-            <p id="player-score">0</p>
-            <p>&#8212;</p>
-            <p id="computer-score">0</p>
+            <p class="score" id="player">You</p>
+            <div class="score score-detail">
+                <p id="player-score">0</p>
+                <p>&#8212;</p>
+                <p id="computer-score">0</p>
+            </div>
+            <p class="score" id="computer">Computer</p>
         </div>
         <div class="legend">
-            <p>You</p>
-            <p>Computer</p>
+            <p id="match-detail"></p>
+            <p id="match-status"></p>
         </div>
     </div>
     <div class="option hidden">
