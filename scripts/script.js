@@ -2,6 +2,9 @@ const rock = "rock";
 const paper = "paper";
 const scissors = "scissors";
 const available = [rock, paper, scissors];
+let playerScore = 0;
+let computerScore = 0;
+let gameOver = false;
 
 /**
  * Get random number between lower and upper
@@ -70,39 +73,107 @@ function playSingleRound(playerSelection, computerSelection) {
     return 0; // "It's a draw!";
 }
 
-/**
- * get player's weapon of choice
- * @returns {string}
- */
-function getUserWeapon() {
-    let valid = false;
-    let playerChoice = "";
-    while (!valid) {
-        playerChoice = prompt("Choose your weapon: Rock, Paper, or Scissors?");
-        if (!available.includes(playerChoice))
-            alert(
-                "Error! Player selection not in Rock, Paper, Scissors! You can't bring " +
-                    playerChoice +
-                    " here!"
-            );
-        else valid = true;
+function onGameOver() {
+    const gameWinMessage =
+        "You win against THE ALMIGHTY COMPUTER! Humanity is saved, all thanks to YOU!";
+    const gameLoseMessage =
+        "You lose! THE ALMIGHTY COMPUTER rules! Now humanity is doomed!";
+    const gameOverMessage = document.getElementById("message");
+    const gameOverDiv = document.querySelector(".game-over");
+    gameOverDiv.classList.remove("hidden");
+    const options = document.querySelectorAll(".option button");
+    options.forEach((btn) => btn.classList.add("disabled"));
+    if (playerScore > computerScore) {
+        gameOverMessage.textContent = gameWinMessage;
+        alert(gameWinMessage);
+    } else {
+        gameOverMessage.textContent = gameLoseMessage;
+        alert(gameLoseMessage);
     }
-    return playerChoice;
 }
 
-function game() {
-    let score = 0;
-    for (let i = 0; i < 5; i++) {
-        let playerChoice = getUserWeapon();
-        let computerChoice = getComputerChoice();
-        console.log("It is: " + playerChoice + " vs " + computerChoice);
-        let result = playSingleRound(playerChoice, computerChoice);
-        if (result === 1) console.log(winMessage(playerChoice));
-        if (result === -1) console.log(loseMessage(playerChoice));
-        if (result === 0) console.log("It's a draw!");
-        score += result;
-    }
-    if (score > 0) console.log("You win the game!");
-    else if (score < 0) console.log("You lose the game!");
-    else console.log("It is a draw! What a fierce game");
+/**
+ * get player's weapon of choice
+ * @param {Event} e
+ * @returns {string}
+ */
+function onPlayerChooseWeapon(e) {
+    console.log(e.target.value);
+    let computerChoice = getComputerChoice();
+    let playerChoice = e.target.value;
+    let result = playSingleRound(playerChoice, computerChoice);
+    let matchDetailText = document.getElementById("match-detail");
+    matchDetailText.textContent = `${playerChoice.toUpperCase()} vs ${computerChoice.toUpperCase()}`;
+    gameOver = updateScore(result, playerChoice);
+    if (gameOver) onGameOver();
+    return e.target.value;
 }
+
+/**
+ *
+ * @param {number} matchResult result of single round match
+ * @param {rock | paper | scissors} playerChoice
+ * @returns {boolean} state of the match
+ */
+function updateScore(matchResult, playerChoice) {
+    let playerScoreText = document.getElementById("player-score");
+    let computerScoreText = document.getElementById("computer-score");
+    let matchStatusText = document.getElementById("match-status");
+    const legendDiv = document.querySelector(".legend");
+    legendDiv.classList.remove("hidden");
+    if (matchResult > 0) {
+        playerScore++;
+        playerScoreText.textContent = playerScore;
+        matchStatusText.textContent = winMessage(playerChoice);
+    }
+    if (matchResult < 0) {
+        computerScore++;
+        computerScoreText.textContent = computerScore;
+        matchStatusText.textContent = loseMessage(playerChoice);
+    }
+    if (matchResult === 0) {
+        matchStatusText.textContent = "It's a draw!";
+    }
+    return playerScore === 5 || computerScore === 5;
+}
+
+function clearScreen() {
+    const playerScoreText = document.getElementById("player-score");
+    const computerScoreText = document.getElementById("computer-score");
+    const legendDiv = document.querySelector(".legend");
+    const gameOverDiv = document.querySelector(".game-over");
+    legendDiv.classList.add("hidden");
+    gameOverDiv.classList.add("hidden");
+    playerScoreText.textContent = 0;
+    computerScoreText.textContent = 0;
+}
+
+function startGame() {
+    playerScore = 0;
+    computerScore = 0;
+    startButton.classList.add("hidden");
+    let controls = document.querySelector(".option");
+    let scoreDiv = document.querySelector(".scores-container");
+    const options = document.querySelectorAll(".option button");
+    options.forEach((btn) => btn.classList.remove("disabled"));
+    controls.classList.remove("hidden");
+    scoreDiv.classList.remove("hidden");
+}
+
+function replayGame() {
+    gameOver = false;
+    clearScreen();
+    startGame();
+}
+
+const rockButton = document.getElementById("rock-btn");
+const paperButton = document.getElementById("paper-btn");
+const scissorsButton = document.getElementById("scissors-btn");
+const startButton = document.getElementById("start-btn");
+const replayButton = document.querySelector(".game-over button");
+
+rockButton.addEventListener("click", onPlayerChooseWeapon);
+paperButton.addEventListener("click", onPlayerChooseWeapon);
+scissorsButton.addEventListener("click", onPlayerChooseWeapon);
+startButton.addEventListener("click", startGame);
+replayButton.addEventListener("click", replayGame);

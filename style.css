@@ -1,0 +1,63 @@
+.title {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.option {
+    margin: 5rem 8rem;
+}
+
+.option ul {
+    display: flex;
+    text-align: center;
+    padding: 0;
+}
+
+.option li {
+    flex: 1;
+    list-style-type: none;
+}
+
+.start {
+    text-align: center;
+}
+
+.scores-container {
+    text-align: center;
+}
+
+.number {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 30%;
+}
+
+.score {
+    flex: 1;
+}
+
+#player {
+    justify-self: flex-start;
+}
+
+.score-detail {
+    display: flex;
+    justify-content: space-around;
+}
+
+#computer {
+    justify-self: flex-end;
+}
+
+.legend {
+    text-align: center;
+    padding: 0 25% 2rem;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.65;
+}

@@ -1,15 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
-    <script src="./scripts/script.js"></script>
+    <script src="./scripts/script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>Rock, Paper, Scissors!</h1>
-    <p>Open console by pressing:</p>
-    <code>Control+Shift+i</code> (Windows + linux)
+    <div class="title">
+        <h1>Rock, Paper, Scissors!</h1>
+        <h3>Do YOU have the guts to play The Legendary ROCK PAPER SCISSORS against</h3>
+        <h3>THE ALMIGHTY COMPUTER</h3>
+    </div>
+    <div class="start">
+        <button type="button" id="start-btn">START</button>
+    </div>
+    <div class="scores-container hidden">
+        <div class="number">
+            <p class="score" id="player">You</p>
+            <div class="score score-detail">
+                <p id="player-score">0</p>
+                <p>&#8212;</p>
+                <p id="computer-score">0</p>
+            </div>
+            <p class="score" id="computer">Computer</p>
+        </div>
+        <div class="legend hidden">
+            <p id="match-detail"></p>
+            <p id="match-status"></p>
+            <div class="game-over hidden">
+                <p id="message"></p>
+                <button>Replay?</button>
+            </div>
+        </div>
+    </div>
+    <div class="option hidden">
+        <ul>
+            <li><button type="button" id="rock-btn" value="rock">ROCK</button></li>
+            <li><button type="button" id="paper-btn" value="paper">PAPER</button></li>
+            <li><button type="button" id="scissors-btn" value="scissors">SCISSORS</button></li>
+        </ul>
+    </div>
 </body>
+
 </html>
