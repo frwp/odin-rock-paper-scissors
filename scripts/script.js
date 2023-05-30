@@ -119,6 +119,8 @@ function updateScore(matchResult, playerChoice) {
     let playerScoreText = document.getElementById("player-score");
     let computerScoreText = document.getElementById("computer-score");
     let matchStatusText = document.getElementById("match-status");
+    const legendDiv = document.querySelector(".legend");
+    legendDiv.classList.remove("hidden");
     if (matchResult > 0) {
         playerScore++;
         playerScoreText.textContent = playerScore;
@@ -135,6 +137,17 @@ function updateScore(matchResult, playerChoice) {
     return playerScore === 5 || computerScore === 5;
 }
 
+function clearScreen() {
+    const playerScoreText = document.getElementById("player-score");
+    const computerScoreText = document.getElementById("computer-score");
+    const legendDiv = document.querySelector(".legend");
+    const gameOverDiv = document.querySelector(".game-over");
+    legendDiv.classList.add("hidden");
+    gameOverDiv.classList.add("hidden");
+    playerScoreText.textContent = 0;
+    computerScoreText.textContent = 0;
+}
+
 function startGame() {
     playerScore = 0;
     computerScore = 0;
@@ -147,6 +160,12 @@ function startGame() {
     scoreDiv.classList.remove("hidden");
 }
 
+function replayGame() {
+    gameOver = false;
+    clearScreen();
+    startGame();
+}
+
 const rockButton = document.getElementById("rock-btn");
 const paperButton = document.getElementById("paper-btn");
 const scissorsButton = document.getElementById("scissors-btn");
@@ -157,4 +176,4 @@ rockButton.addEventListener("click", onPlayerChooseWeapon);
 paperButton.addEventListener("click", onPlayerChooseWeapon);
 scissorsButton.addEventListener("click", onPlayerChooseWeapon);
 startButton.addEventListener("click", startGame);
-replayButton.addEventListener("click", startGame);
+replayButton.addEventListener("click", replayGame);
