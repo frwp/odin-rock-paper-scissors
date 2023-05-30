@@ -2,6 +2,9 @@ const rock = "rock";
 const paper = "paper";
 const scissors = "scissors";
 const available = [rock, paper, scissors];
+let playerScore = 0;
+let computerScore = 0;
+let finished = false;
 
 /**
  * Get random number between lower and upper
@@ -75,15 +78,19 @@ function playSingleRound(playerSelection, computerSelection) {
  * @param {Event} e
  * @returns {string}
  */
-function getPlayerWeapon(e) {
+function onPlayerChooseWeapon(e) {
     console.log(e.target.value);
+    let computerChoice = getComputerChoice();
+    let playerChoice = e.target.value;
+    let result = playSingleRound(playerChoice, computerChoice);
+    finished = updateScore(result, playerChoice);
     return e.target.value;
 }
 
 function game() {
     let score = 0;
     for (let i = 0; i < 5; i++) {
-        let playerChoice = getPlayerWeapon();
+        let playerChoice = onPlayerChooseWeapon();
         let computerChoice = getComputerChoice();
         console.log("It is: " + playerChoice + " vs " + computerChoice);
         let result = playSingleRound(playerChoice, computerChoice);
@@ -97,7 +104,35 @@ function game() {
     else console.log("It is a draw! What a fierce game");
 }
 
+/**
+ *
+ * @param {number} matchResult result of single round match
+ * @param {rock | paper | scissors} playerChoice
+ * @returns {boolean} state of the match
+ */
+function updateScore(matchResult, playerChoice) {
+    let playerScoreText = document.getElementById("player-score");
+    let computerScoreText = document.getElementById("computer-score");
+    let matchDetailText = document.getElementById("match-detail");
+    if (matchResult > 0) {
+        playerScore++;
+        playerScoreText.textContent = playerScore;
+        matchDetailText.textContent = winMessage(playerChoice);
+    }
+    if (matchResult < 0) {
+        computerScore++;
+        computerScoreText.textContent = computerScore;
+        matchDetailText.textContent = loseMessage(playerChoice);
+    }
+    if (matchResult === 0) {
+        matchDetailText.textContent = "It's a draw!";
+    }
+    return playerScore === 5 || computerScore === 5;
+}
+
 function startGame() {
+    playerScore = 0;
+    computerScore = 0;
     startButton.classList.add("hidden");
     let controls = document.querySelector(".option");
     let scoreDiv = document.querySelector(".scores");
@@ -105,12 +140,12 @@ function startGame() {
     scoreDiv.classList.remove("hidden");
 }
 
-let rockButton = document.getElementById("rock-btn");
-let paperButton = document.getElementById("paper-btn");
-let scissorsButton = document.getElementById("scissors-btn");
-let startButton = document.getElementById("start-btn");
+const rockButton = document.getElementById("rock-btn");
+const paperButton = document.getElementById("paper-btn");
+const scissorsButton = document.getElementById("scissors-btn");
+const startButton = document.getElementById("start-btn");
 
-rockButton.addEventListener("click", getPlayerWeapon);
-paperButton.addEventListener("click", getPlayerWeapon);
-scissorsButton.addEventListener("click", getPlayerWeapon);
+rockButton.addEventListener("click", onPlayerChooseWeapon);
+paperButton.addEventListener("click", onPlayerChooseWeapon);
+scissorsButton.addEventListener("click", onPlayerChooseWeapon);
 startButton.addEventListener("click", startGame);
